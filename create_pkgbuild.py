@@ -706,22 +706,10 @@ def main():
                         help='Update PKGBUILD if a newer version is found.')
     args = parser.parse_args()
 
-    # Dictionary containing valid Python versions
-    valid_python_versions = {"kinetic": ["2.7", "3.7"],
-                             "melodic": ["2.7", "3.7"]}
-
-    # Default Python version that will be used
-    # Even though the official python version for melodic is stil 2.7, the official one for Arch is 3.
-    default_python_version = {"kinetic": "2.7",
-                              "melodic": "3.7"}
-
-    python_version = default_python_version[args.distro]
+    # TODO: Fetch default python version from rosdistro index or force python 3.
+    python_version = "3.8"
     if args.python_version != "":
-        if args.python_version in valid_python_versions[args.distro]:
-            python_version = args.python_version
-        else:
-            print("Invalid Python version (%s) for %s, using version %s instead."
-                  % args.python_version % args.distro % python_version)
+        python_version = args.python_version
 
     distro = DistroDescription(args.distro,
                                python_version=python_version,
